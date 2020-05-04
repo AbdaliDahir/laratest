@@ -8,6 +8,28 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VueRouter from 'vue-router';
+import moment from 'moment';
+
+Vue.use(VueRouter)
+
+// import routers
+import routes from './router';
+
+const router = new VueRouter({
+    mode: 'history',
+    routes // short for `routes: routes`
+});
+
+import { Form, HasError, AlertError } from 'vform'
+
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+Vue.filter('filterDate', function(ourdate) {
+    return moment(ourdate).format('MMMM Do YYYY');
+})
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -29,4 +51,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router
 });
